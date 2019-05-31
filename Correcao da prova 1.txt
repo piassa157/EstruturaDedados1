@@ -1,0 +1,72 @@
+// questao 1
+public void incorpore (ListaSimplesOrdenada<X> lis) throws Exception
+{
+    if (lis==null)
+        throw new Exception ("Falta o que incorporar");
+
+    int comp=lis.primeiro.getInfo().compareTo(this.primeiro.getInfo());
+
+    No atualThis, atualLis;
+
+    if (comp<0)
+    {
+        this.primeiro = new No (lis.primeiro.getInfo(), this.primeiro);
+        atualLis = lis.primeiro.getProx();
+    }
+    else
+        if (comp==0)
+            atualLis = lis.primeiro.getProx();
+        else
+            atualLis = lis.primeiro;
+
+    atualThis = this.primeiro;
+
+    while (atualThis.getProx()!=null && atualLis!=null)
+    {
+        comp=atualLis.getInfo().compareTo(atualThis.getProx().getInfo());
+
+        if (comp<0)
+        {
+            atualThis.setProx (new No (atualLis.getInfo(), atualThis.getProx()));
+            atualLis  = atualLis .getProx();
+        }
+        else
+            if (comp==0)
+                atualLis  = atualLis .getProx(); 
+
+        atualThis = atualThis.getProx();
+    }
+
+    while (atualLis!=null)
+    {
+        this.ultimo.setProx (new No (atualLis.getInfo()));
+        this.ultimo = this.ultimo.getProx();
+        atualLis    = atualLis .getProx(); 
+    }
+}
+
+
+// questao 2
+public void invertaSe (){
+
+   if(this.primeiro == null) // Se não tiver nenhum item, não tem o que inverter
+     return;
+
+   //Se chegar aqui tem
+   
+   No anterior = null;
+   No seguinte = this.primeiro.getProx();
+   No atual    = this.primeiro;
+   
+   while(seguinte != null)
+   {
+     atual.setProx(anterior);
+     anterior = atual;
+     atual = seguinte;
+     seguinte = seguinte.getProx();
+   }
+
+  atual.setProx(anterior);
+  this.ultimo = this.primeiro;
+  this.primeiro = atual;
+}
